@@ -41,7 +41,7 @@ class WeatherUi extends StatelessWidget {
   Widget build(BuildContext context) {
     var time = DateFormat("yMMMMd").format(DateTime.now());
     var theme = Theme.of(context);
-    var controller = Get.put(Maincontroller);
+    var controller = Get.put(Maincontroller());
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
@@ -49,10 +49,12 @@ class WeatherUi extends StatelessWidget {
         title: "$time".text.color(theme.primaryColor).make(),
         actions: [
           Obx(
-            () => TextButton(
-                onPressed: () {},
-                child: Icon(
-                  Icons.light_mode,
+            () => IconButton(
+                onPressed: () {
+                  controller.changeTheme();
+                },
+                icon: Icon(
+                  controller.isDark.value ? Icons.light_mode : Icons.nightlight,
                   color: theme.primaryColor,
                 )),
           ),
