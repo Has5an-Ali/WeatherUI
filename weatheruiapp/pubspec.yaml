@@ -92,19 +92,17 @@ flutter:
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   fonts:
-    - family: poppins
+    - family: sans_regular
       fonts:
-        - asset: assets/fonts/poppin.ttf
-    - family: poppins_bold
+        - asset: assets/font/sans_regular.ttf
+
+    - family: sans_semibold
       fonts:
-        - asset: assets/fonts/poppin_bold.ttf
-    - family: poppins_light
+        - asset: assets/font/sans_semibold.ttf
+
+    - family: sans_bold
       fonts:
-        - asset: assets/fonts/poppin_light.ttf
-
-
-
-
+        - asset: assets/font/sans_bold.ttf
 
   #
   # For details regarding fonts from package dependencies,
