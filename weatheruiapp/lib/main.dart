@@ -103,7 +103,7 @@ class WeatherUi extends StatelessWidget {
                   children: [
                     Image.asset(
                       iconlist[index],
-                      width: 60,
+                      width: 50,
                       height: 60,
                     ).box.gray200.roundedSM.make(),
                     10.heightBox,
