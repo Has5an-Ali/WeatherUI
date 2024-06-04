@@ -1,12 +1,17 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:intl/intl.dart';
+import 'package:weatheruiapp/consts/Our_Theme.dart';
 import 'package:weatheruiapp/consts/colors.dart';
 import 'package:weatheruiapp/consts/fontstyle.dart';
 import 'package:weatheruiapp/consts/images.dart';
 import 'package:weatheruiapp/consts/strings.dart';
+import 'package:get/get.dart';
+import 'package:weatheruiapp/controller/MainController.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,8 +23,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: CustomTheme.LightTheme,
+      darkTheme: CustomTheme.DarkTheme,
+      themeMode: ThemeMode.system,
       title: 'Flutter Demo',
       home: const WeatherUi(),
     );
@@ -32,21 +40,27 @@ class WeatherUi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var time = DateFormat("yMMMMd").format(DateTime.now());
+    var theme = Theme.of(context);
+    var controller = Get.put(Maincontroller);
     return Scaffold(
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        title: "$time".text.make(),
+        backgroundColor: theme.scaffoldBackgroundColor,
+        title: "$time".text.color(theme.primaryColor).make(),
         actions: [
-          TextButton(
-              onPressed: () {},
-              child: Icon(
-                Icons.light_mode,
-                color: Vx.gray600,
-              )),
+          Obx(
+            () => TextButton(
+                onPressed: () {},
+                child: Icon(
+                  Icons.light_mode,
+                  color: theme.primaryColor,
+                )),
+          ),
           TextButton(
               onPressed: () {},
               child: Icon(
                 Icons.more_vert,
-                color: Vx.gray600,
+                color: theme.primaryColor,
               ))
         ],
       ),
@@ -59,6 +73,7 @@ class WeatherUi extends StatelessWidget {
             children: [
               "Islamabad"
                   .text
+                  .color(theme.primaryColor)
                   .fontFamily(bold)
                   .letterSpacing(3)
                   .size(32)
@@ -76,13 +91,13 @@ class WeatherUi extends StatelessWidget {
                     TextSpan(
                         text: "39$degree",
                         style: TextStyle(
-                            color: Vx.gray800,
+                            color: theme.primaryColor,
                             fontSize: 28,
                             fontFamily: semibold)),
                     TextSpan(
                         text: "Sunny",
                         style: TextStyle(
-                            color: Vx.gray800,
+                            color: theme.primaryColor,
                             fontSize: 28,
                             fontFamily: semibold))
                   ]))
@@ -93,12 +108,18 @@ class WeatherUi extends StatelessWidget {
                 children: [
                   TextButton.icon(
                       onPressed: null,
-                      icon: Icon(Icons.expand_less_rounded),
-                      label: "41$degree".text.make()),
+                      icon: Icon(
+                        Icons.expand_less_rounded,
+                        color: theme.primaryColor,
+                      ),
+                      label: "41$degree".text.color(theme.primaryColor).make()),
                   TextButton.icon(
                       onPressed: null,
-                      icon: Icon(Icons.expand_more_rounded),
-                      label: "22$degree".text.make())
+                      icon: Icon(
+                        Icons.expand_more_rounded,
+                        color: theme.primaryColor,
+                      ),
+                      label: "22$degree".text.color(theme.primaryColor).make())
                 ],
               ),
               10.heightBox,
@@ -155,8 +176,18 @@ class WeatherUi extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  "Next 7 Days".text.size(16).fontFamily(semibold).make(),
-                  TextButton(onPressed: () {}, child: Text("View all "))
+                  "Next 7 Days"
+                      .text
+                      .color(theme.primaryColor)
+                      .size(16)
+                      .fontFamily(semibold)
+                      .make(),
+                  TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        "View all ",
+                        style: TextStyle(color: theme.primaryColor),
+                      ))
                 ],
               ),
               ListView.builder(
@@ -167,13 +198,16 @@ class WeatherUi extends StatelessWidget {
                     var day = DateFormat('EEEE')
                         .format(DateTime.now().add(Duration(days: index + 1)));
                     return Card(
+                      color: theme.cardColor,
                       child: Container(
                         padding:
                             EdgeInsets.symmetric(vertical: 14, horizontal: 8),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Expanded(child: day.text.make()),
+                            Expanded(
+                                child:
+                                    day.text.color(theme.primaryColor).make()),
                             Expanded(
                               child: TextButton.icon(
                                   onPressed: null,
@@ -181,7 +215,10 @@ class WeatherUi extends StatelessWidget {
                                     'assets/weather/02d.png',
                                     width: 40,
                                   ),
-                                  label: "26$degree".text.make()),
+                                  label: "26$degree"
+                                      .text
+                                      .color(theme.primaryColor)
+                                      .make()),
                             ),
                             Expanded(
                               child: RichText(
@@ -189,13 +226,13 @@ class WeatherUi extends StatelessWidget {
                                 TextSpan(
                                     text: "22$degree",
                                     style: TextStyle(
-                                        color: Vx.gray600,
+                                        color: theme.primaryColor,
                                         fontFamily: semibold,
                                         fontSize: 16)),
                                 TextSpan(
                                     text: "/22$degree",
                                     style: TextStyle(
-                                        color: Vx.gray300,
+                                        color: theme.primaryColor,
                                         fontFamily: semibold,
                                         fontSize: 16))
                               ])),
