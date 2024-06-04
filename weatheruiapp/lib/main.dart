@@ -160,15 +160,47 @@ class WeatherUi extends StatelessWidget {
                 ],
               ),
               ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: 7,
                   itemBuilder: (BuildContext context, int index) {
-                    var dayformat = DateFormat("EEEE")
+                    var day = DateFormat('EEEE')
                         .format(DateTime.now().add(Duration(days: index + 1)));
                     return Card(
                       child: Container(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 14, horizontal: 8),
                         child: Row(
-                          children: ["dayformat".text.make()],
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(child: day.text.make()),
+                            Expanded(
+                              child: TextButton.icon(
+                                  onPressed: null,
+                                  icon: Image.asset(
+                                    'assets/weather/02d.png',
+                                    width: 40,
+                                  ),
+                                  label: "26$degree".text.make()),
+                            ),
+                            Expanded(
+                              child: RichText(
+                                  text: TextSpan(children: [
+                                TextSpan(
+                                    text: "22$degree",
+                                    style: TextStyle(
+                                        color: Vx.gray600,
+                                        fontFamily: semibold,
+                                        fontSize: 16)),
+                                TextSpan(
+                                    text: "/22$degree",
+                                    style: TextStyle(
+                                        color: Vx.gray300,
+                                        fontFamily: semibold,
+                                        fontSize: 16))
+                              ])),
+                            )
+                          ],
                         ),
                       ),
                     );
